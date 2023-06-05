@@ -1,0 +1,245 @@
+body{
+    font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+}
+
+.container {
+    max-width: 1200px;
+    max-height: 1000px;
+    margin: 50px auto;
+    display: flex;
+    justify-content: center;
+    color: rgb(228, 228, 228);
+}
+
+#starterpage {
+    max-width: 800px;
+    width: 100%;
+    max-height: 400px;
+    height: 100%;
+    background-color: rgb(27, 158, 190);
+    border-radius: 10px;
+    display: flex;
+    justify-content: center;
+    text-align: center;
+    padding-bottom: 40px;
+}
+
+.btn-starter {
+    background-color: rgb(66, 62, 62);
+    color: rgb(228, 228, 228);
+    max-width: 300px;
+    width: 100%;
+    max-height: 100px;
+    height: 100%;
+    border-radius: 15px;
+    text-align: center;
+    font-size: 3rem;
+}
+
+.btn-gameStarter {
+    background-color: rgb(66, 62, 62);
+    color: rgb(228, 228, 228);
+    max-width: 300px;
+    width: 100%;
+    max-height: 100px;
+    height: 100%;
+    border-radius: 15px;
+    text-align: center;
+    font-size: 3rem;
+    margin-top: 60px;
+}
+
+#Options {
+    display: none;
+    max-width: 800px;
+    width: 100%;
+    min-height: 400px;
+    height: 100%;
+    background-color: rgb(27, 158, 190);
+    border-radius: 10px;
+    text-align: center;
+    justify-content: center;
+    align-items: center;
+    padding-bottom: 40px;
+    flex-direction: column;
+}
+
+h1 {
+    align-self: flex-start;
+    padding-top: 25px;
+    font-size: 4rem;
+}
+
+#customRange {
+    max-width: 600px;
+    width: 100%;
+    padding-bottom: 20px;
+    padding-left: 15px;
+    padding-right: 15px;
+}
+
+.numberRow {
+    max-width: 600px;
+    width: 100%;
+    justify-content: center;
+}
+
+.numbers {
+    max-width: 600px;
+    width: 100%;
+    padding-top: 20px;
+    padding-left: 20px;
+    padding-right: 15px;
+    display: inline-flex;
+    justify-content: space-between;
+}
+
+.range {
+    max-width: 600px;
+    width: 100%;
+}
+
+.mid {
+    margin-left: 5px;
+}
+
+.eight {
+    margin-left: 8px;
+}
+
+#rules {
+    display: none;
+}
+
+#szabalyok {
+    display: block;
+}
+
+#szabalyok>ul {
+    text-align: start;
+}
+
+h2 {
+    padding-bottom: 10px;
+}
+
+.ruleTime {
+    display: inline-flex;
+}
+
+.dropdown {
+    margin-left: 20px;
+}
+
+#dropdownMenuButton {
+    background-color: rgb(66, 62, 62);
+}
+
+#Game{
+    display: none;
+    min-width: fit-content;
+    max-width: 800px !important;
+    width: 100%;
+    min-height: 400px;
+    height: 100%;
+    background-color: rgb(27, 158, 190);
+    border-radius: 10px;
+    text-align: center;
+    justify-content: center;
+    padding-bottom: 40px;
+    flex-wrap: wrap;
+}
+
+.scene {
+  display: inline-block;
+  min-width: 50px;
+  width: 200px;
+  min-height: 50px;
+  height: 200px;
+  max-height: 200px;
+  perspective: 600px;
+  padding-left: 5px;
+  padding-right: 5px;
+  padding-top: 3px;
+}
+
+.card {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  cursor: pointer;
+  transform-style: preserve-3d;
+  transform-origin: center;
+  transition: transform 1s;
+}
+
+.card.is-flipped{
+  transform:rotateY(180deg);
+}
+
+.card__face {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  line-height: 200px;
+  color: white;
+  text-align: center;
+  font-weight: bold;
+  font-size: 40px;
+  backface-visibility: hidden;
+}
+
+.card__face--front {
+  background: rgb(66, 62, 62);
+}
+
+.card__face--back {
+    max-height: 200px;
+  background: rgb(228, 228, 228);
+  transform: rotateY(180deg);
+}
+
+img{
+    max-height: 190px;
+}
+
+#Congrats_Fail{
+    display: none;
+    min-width: fit-content;
+    max-width: 800px;
+    width: 100%;
+    min-height: 400px;
+    height: 100%;
+    background-color: rgb(27, 158, 190);
+    border-radius: 10px;
+    text-align: center;
+    align-items: center;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.hidden{
+    pointer-events: none;
+}
+
+.Fail{
+    display: none;
+}
+
+.Congrats{
+    display: none;
+    align-self: center;
+}
+
+.btn-gameRestart{
+    background-color: rgb(66, 62, 62);
+    color: rgb(228, 228, 228);
+    max-width: 300px;
+    width: 100%;
+    max-height: 100px;
+    height: 100%;
+    border-radius: 15px;
+    text-align: center;
+    font-size: 3rem;
+    margin-bottom: 40px;
+}

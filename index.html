@@ -1,0 +1,331 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+        crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="style.css">
+    <title>Memory Game</title>
+    <link rel="icon" type="image/x-icon" href="./Image/puzzle_icon_137274.png">
+</head>
+
+<body>
+    <div class="container">
+        <div id="starterpage" class="row">
+            <h1>Memória Játék</h1>
+            <button class="btn btn-starter" onclick="Start()">Indítás</button>
+        </div>
+        <div id="Options">
+            <div class="numberRow">
+                <div class="numbers">
+                    <p>4</p>
+                    <p class="eight">8</p>
+                    <p class="mid">16</p>
+                    <p>32</p>
+                    <p>64</p>
+                </div>
+
+                <div class="range">
+                    <input type="range" class="form-range" min="1" max="5" value="1" id="customRange">
+                </div>
+
+                <!--<div class="ruleTime">
+                    <h2>Idő:</h2>
+                    <div class="dropdown">
+                        <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton"
+                            data-bs-toggle="dropdown" aria-expanded="false">
+                            Végtelen
+                        </button>
+                        <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="dropdownMenuButton">
+                            <li><button class="dropdown-item" type="button" onclick="infinity(this)">Végtelen</button></li>
+                            <li><button class="dropdown-item" type="button" onclick="oneMin(this)">1 Perc</button></li>
+                            <li><button class="dropdown-item" type="button" onclick="twoMin(this)">2 Perc</button></li>
+                            <li><button class="dropdown-item" type="button" onclick="threeMin(this)">3 Perc</button></li>
+                        </ul>
+                    </div>-->
+
+                <div id="szabalyok">
+                    <h2>Szabályok</h2>
+                    <ul>
+                        <li>Válaszd ki a csúszkán hogy hány kártyával játszanál.</li>
+                        <!-- <li>Ha szeretnél, válassz időtartamot (alap idő: végtelen).</li> -->
+                        <li>Találd meg párokat (adott idő alatt) és élvezd a játékot!</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="Start">
+                <button class="btn btn-gameStarter" onclick="StartGame()">Indítás</button>
+            </div>
+        </div>
+        <div id="Game"></div>
+        <div id="Congrats_Fail">
+            <h1 class="Congrats">Gratulálok</h1>
+            <h1 class="Fail">Elvesztetted</h1>
+            <h2 class="hibaSzam"></h2>
+            <button class="btn btn-gameRestart" onclick="RestartGame()">Újrakezdés</button>
+        </div>
+    </div>
+
+
+
+
+
+    <script>
+
+        let GameId = document.getElementById("Game")
+
+        function Start(Obj) {
+            document.getElementById("Options").style.display = "flex"
+            document.getElementById("starterpage").style.display = "none"
+        }
+
+        function StartGame(Obj) {
+            document.getElementById("Options").style.display = "none"
+            document.getElementById("Game").style.display = "block"
+
+            //Card forgatása
+
+            var cards = document.querySelectorAll('.card');
+
+            [...cards].forEach((card) => {
+                card.addEventListener('click', function (csuszka) {
+                    card.classList.toggle('is-flipped');
+                });
+            });
+
+        }
+
+        var maxCard = document.getElementById("customRange").value
+        var slider = document.getElementById("customRange")
+
+        console.log(maxCard)
+
+        const myArray = ["Atari-logo-7CCF1143E1-seeklogo.com", "Bugatti_EB-logo-A62F579204-seeklogo.com", "Bugatti-logo-9B69E86879-seeklogo.com", "citroen-2009-logo-C696A25544-seeklogo.com", "dodge-logo-62AD29691C-seeklogo.com", "domino-s-logo-5A72DDBD09-seeklogo.com", "Dunkin_donuts-logo-6828720377-seeklogo.com", "ebay-logo-AFE79A465C-seeklogo.com", "Eni_Agip_Petroli-logo-9F23A97F8A-seeklogo.com", "formula-1-logo-FF7B9676CF-seeklogo.com", "gmc-logo-55E7B49E1B-seeklogo.com", "head-shoulders-logo-80AC5E9C0F-seeklogo.com", "heineken-logo-D604624E9D-seeklogo.com", "visa-electron-logo-71BEC57E8F-seeklogo.com", "html5-logo-31822", "intel-new-2020-logo-C73A4C2E7F-seeklogo.com", "javascript-39394", "john-deere-1956-logo-19AF2AFF6E-seeklogo.com", "kfc-logo-481740F210-seeklogo.com", "land-rover-logo-F9736144BD-seeklogo.com", "MAN-logo-A3858CF475-seeklogo.com", "maserati-logo-40E3D6EB82-seeklogo.com", "mortal-kombat-logo-62FC43E80B-seeklogo.com", "nespresso-logo-A29EC2A286-seeklogo.com", "netflix-logo-9F2C3C3C63-seeklogo.com", "nike-just-do-it-logo-0E50A046C1-seeklogo.com", "nivea-logo-B71F28064C-seeklogo.com", "nodejs-logo-065257DE24-seeklogo.com", "off-white-logo-1DD366C550-seeklogo.com", "skoda-new-2022-logo-8A638BD846-seeklogo.com", "Starbucks-logo", "Tefal-logo-BF74B22565-seeklogo.com"]
+
+        var rando = 0
+        var duplicatedArray = []
+        var randomSzamok = []
+        var tryNumbers = []
+        var valasztottSzam = 0
+        var valasztottKep = 0
+        let szamolo = 4
+        let str = ""
+
+        if (maxCard == 1) {
+            while (duplicatedArray.length != szamolo) {
+                rando = Math.floor(Math.random() * 32)
+                tryNumbers = randomSzamok.includes(rando)
+                if (!tryNumbers) {
+                    randomSzamok.push(rando)
+                    var picName = myArray[randomSzamok[valasztottSzam]]
+                    duplicatedArray.push(picName, picName)
+                    valasztottSzam++
+                }
+            }
+            duplicatedArray.sort(() => Math.random() - 0.5)
+            console.log(randomSzamok)
+            console.log(duplicatedArray)
+
+            for (let i = 0; i < szamolo; i++) {
+                str += `<div class="scene scene--card" style="">
+                                <div class="card" onclick="kartya(this)" id="kartya${valasztottKep}">
+                                    <div class="card__face card__face--front"></div>
+                                    <div class="card__face card__face--back">
+                                        <img src="Image/${duplicatedArray[valasztottKep]}.png" class="img-fluid" id="thisImg" alt="">
+                                    </div>
+                                </div>
+                            </div>`
+                valasztottKep++
+            }
+
+            GameId.innerHTML = str
+
+        }
+
+        slider.addEventListener('change', csuszka)
+
+        function csuszka() {
+
+            randomSzamok = []
+            duplicatedArray = []
+            maxCard = 0
+            rando = 0
+            tryNumbers = 0
+            valasztottSzam = 0
+            valasztottKep = 0
+            str = ""
+            maxCard = this.value
+
+            if (maxCard == 1) {
+                szamolo = 4
+            }
+            else if (maxCard == 2) {
+                szamolo = 8
+            }
+            else if (maxCard == 3) {
+                szamolo = 16
+            }
+            else if (maxCard == 4) {
+                szamolo = 32
+            }
+            else if (maxCard == 5) {
+                szamolo = 64
+            }
+
+            while (duplicatedArray.length != szamolo) {
+                rando = Math.floor(Math.random() * 32)
+                tryNumbers = randomSzamok.includes(rando)
+                if (!tryNumbers) {
+                    randomSzamok.push(rando)
+                    var picName = myArray[randomSzamok[valasztottSzam]]
+                    duplicatedArray.push(picName, picName)
+                    valasztottSzam++
+                }
+            }
+            duplicatedArray.sort(() => Math.random() - 0.5)
+            console.log(randomSzamok)
+            console.log(duplicatedArray)
+
+            for (let i = 0; i < szamolo; i++) {
+                str += `<div class="scene scene--card">
+                                <div class="card" onclick="kartya(this)" id="kartya${valasztottKep}">
+                                    <div class="card__face card__face--front"></div>
+                                    <div class="card__face card__face--back">
+                                        <img src="Image/${duplicatedArray[valasztottKep]}.png" class="img-fluid" id="thisImg" alt="">
+                                    </div>
+                                </div>
+                            </div>`
+                valasztottKep++
+            }
+
+            GameId.innerHTML = str
+        }
+
+        //megfordítás akadályozás és automata visszafordítás
+
+        var nowCard = ""
+        var before = ""
+        var now = ""
+        var nowChoosen = ""
+        var beforeChoosen = ""
+        var fault = 0
+        var szamolas = []
+
+        function kartya(Obj) {
+
+            nowCard = Obj.querySelector("#thisImg").src.split("/").pop().split(".")[0]
+            now = nowCard
+            beforeChoosen = nowChoosen
+            nowChoosen = Obj.id
+
+
+            if (nowChoosen == beforeChoosen && Obj.classList.contains("is-flipped")) {
+                console.log("ugyan az")
+                now = ""
+                before = ""
+            }
+
+            else if (now == before) {
+                console.log("jo")
+                document.getElementById(beforeChoosen).classList.add("hidden")
+                document.getElementById(nowChoosen).classList.add("hidden")
+                now = ""
+                before = ""
+                nowChoosen = ""
+            }
+            else if (before == "") {
+                console.log("ures")
+            }
+            else if (now != before) {
+                fault++
+                console.log("visszafordít")
+                document.getElementById(beforeChoosen).classList.remove("is-flipped");
+                document.getElementById(nowChoosen).classList.remove("is-flipped");
+                before = ""
+            }
+
+            before = now
+            console.log("hibák: " + fault)
+
+            var kifogytamANevekbol = Obj.classList.contains("hidden")
+
+            if (kifogytamANevekbol == true) {
+                szamolas.push(kifogytamANevekbol)
+            }
+
+
+            console.log(szamolas)
+            console.log(szamolas.length)
+            console.log(szamolo)
+
+            if (szamolas.length == szamolo / 2 && szamolas.length != 0) {
+                document.getElementById("Congrats_Fail").style.display = "flex"
+                document.getElementById("Game").style.display = "none"
+                document.querySelector(".Congrats").style.display = "block"
+                document.querySelector(".hibaSzam").innerHTML = "Hibák száma: " + fault
+            }
+        }
+
+        szamolo = 4
+
+        function RestartGame() {
+            document.getElementById("customRange").value = 1
+
+            rando = 0
+            duplicatedArray = []
+            randomSzamok = []
+            tryNumbers = []
+            valasztottSzam = 0
+            valasztottKep = 0
+            szamolo = 4
+            str = ""
+            maxCard = document.getElementById("customRange").value
+            szamolas = []
+            fault = 0
+
+            if (maxCard == 1) {
+                while (duplicatedArray.length != szamolo) {
+                    rando = Math.floor(Math.random() * 32)
+                    tryNumbers = randomSzamok.includes(rando)
+                    if (!tryNumbers) {
+                        randomSzamok.push(rando)
+                        var picName = myArray[randomSzamok[valasztottSzam]]
+                        duplicatedArray.push(picName, picName)
+                        valasztottSzam++
+                    }
+                }
+                duplicatedArray.sort(() => Math.random() - 0.5)
+                console.log(randomSzamok)
+                console.log(duplicatedArray)
+
+                for (let i = 0; i < szamolo; i++) {
+                    str += `<div class="scene scene--card" style="">
+                                <div class="card" onclick="kartya(this)" id="kartya${valasztottKep}">
+                                    <div class="card__face card__face--front"></div>
+                                    <div class="card__face card__face--back">
+                                        <img src="Image/${duplicatedArray[valasztottKep]}.png" class="img-fluid" id="thisImg" alt="">
+                                    </div>
+                                </div>
+                            </div>`
+                    valasztottKep++
+                }
+            }
+            GameId.innerHTML = str
+
+            document.getElementById("Options").style.display = "flex"
+            document.getElementById("Congrats_Fail").style.display = "none"
+
+        }
+
+    </script>
+
+</body>
+
+</html>
